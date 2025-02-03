@@ -1,8 +1,6 @@
 #define CLAY_IMPLEMENTATION
 #include <clay.h>
-#include <renderers/raylib/clay_renderer_raylib.h>
-
-
+#include <renderers/raylib/clay_renderer_raylib.c>
 
 const int FONT_ID_BODY_16 = 0;
 Clay_Color COLOR_WHITE = { 255, 255, 255, 255};
@@ -16,9 +14,9 @@ void RenderHeaderButton(Clay_String text) {
         })
     ) {
         CLAY_TEXT(text, CLAY_TEXT_CONFIG({
+            .textColor = { 255, 255, 255, 255},
             .fontId = FONT_ID_BODY_16,
-            .fontSize = 16,
-            .textColor = { 255, 255, 255, 255 }
+            .fontSize = 16
         }));
     }
 }
@@ -83,8 +81,8 @@ int main(void) {
     uint64_t clayRequiredMemory = Clay_MinMemorySize();
     Clay_Arena clayMemory = Clay_CreateArenaWithCapacityAndMemory(clayRequiredMemory, malloc(clayRequiredMemory));
     Clay_Initialize(clayMemory, (Clay_Dimensions) {
-       .width = GetScreenWidth(),
-       .height = GetScreenHeight()
+       .width = (float)GetScreenWidth(),
+       .height = (float)GetScreenHeight()
     }, (Clay_ErrorHandler) { HandleClayErrors }); // This final argument is new since the video was published
     Clay_SetMeasureTextFunction(Raylib_MeasureText, 0);
     Raylib_fonts[FONT_ID_BODY_16] = (Raylib_Font) {
@@ -96,8 +94,8 @@ int main(void) {
     while (!WindowShouldClose()) {
         // Run once per frame
         Clay_SetLayoutDimensions((Clay_Dimensions) {
-                .width = GetScreenWidth(),
-                .height = GetScreenHeight()
+                .width = (float)GetScreenWidth(),
+                .height = (float)GetScreenHeight()
         });
 
         Vector2 mousePosition = GetMousePosition();

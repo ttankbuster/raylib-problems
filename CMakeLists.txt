@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(ProjectName LANGUAGES C CXX)
+project(ProjectName LANGUAGES C)
 
 add_subdirectory("external/raylib")
 
@@ -22,5 +22,5 @@ endif ()
 
 set_target_properties(ProjectName
         PROPERTIES
-        CXX_STANDARD 23
+        C_STANDARD 23
 )
